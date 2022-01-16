@@ -70,7 +70,7 @@ jobs:
         id: docker-build
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.jekyll-version }}
+          context: .
           platforms: linux/amd64, linux/arm64
           outputs: type=registry # same as --push, push: true
           tags: ${{ steps.meta.outputs.tags }}
