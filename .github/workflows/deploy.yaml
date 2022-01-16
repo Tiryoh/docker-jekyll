@@ -1,0 +1,94 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - 'LICENSE'
+  schedule:
+    - cron: "0 2 * * 0" # Weekly on Sundays at 02:00
+
+env:
+  DOCKER_USERNAME: tiryoh
+  DOCKER_IMAGENAME: jekyll
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jekyll-version:
+          - '3.8.7'
+          - '3.9.1'
+          - '4.0.1'
+          - '4.1.1'
+          - '4.2.1'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Setup Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to docker.io
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Prepare Docker metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGENAME }}
+          tags: |
+            type=raw,value=${{ matrix.jekyll-version }}
+            type=raw,value=${{ matrix.jekyll-version }}-{{date 'YYYYMMDDTHHmm'}}
+          flavor: |
+            latest=${{ matrix.jekyll-version == '' }}
+            prefix=
+            suffix=
+
+      - name: Build and Publish
+        id: docker-build
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.jekyll-version }}
+          platforms: linux/amd64, linux/arm64
+          outputs: type=registry # same as --push, push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - # Temp fix
+        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/moby/buildkit/issues/1896
+        # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md
+        name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Get Current Job Log URL
+        id: jobs
+        uses: Tiryoh/gha-jobid-action@v0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          job_name: build-and-deploy (${{ matrix.jekyll-version }})
