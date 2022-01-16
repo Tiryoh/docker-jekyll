@@ -57,11 +57,12 @@ jobs:
         with:
           images: |
             ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGENAME }}
+            ghcr.io/${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGENAME }}
           tags: |
-            type=raw,value=${{ matrix.jekyll-version }}
             type=raw,value=${{ matrix.jekyll-version }}-{{date 'YYYYMMDDTHHmm'}}
+            type=raw,value=${{ matrix.jekyll-version }}
           flavor: |
-            latest=${{ matrix.jekyll-version == '' }}
+            latest=${{ matrix.jekyll-version == '4.2.1' }}
             prefix=
             suffix=
 
@@ -85,10 +86,3 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
-      - name: Get Current Job Log URL
-        id: jobs
-        uses: Tiryoh/gha-jobid-action@v0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          job_name: build-and-deploy (${{ matrix.jekyll-version }})
