@@ -15,7 +15,6 @@ fi
 
 docker build -t $DOCKER_HUB_USER/$DOCKER_TAG \
  --build-arg RUBYOPT=$RUBYOPT \
- --build-arg RUBYOPT=$RUBYOPT \
  --build-arg JEKYLL_DOCKER_TAG=$JEKYLL_VERSION \
  --build-arg JEKYLL_VERSION=$JEKYLL_VERSION \
  --build-arg JEKYLL_DOCKER_COMMIT=$COMMIT_HASH \
