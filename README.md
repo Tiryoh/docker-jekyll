@@ -10,14 +10,14 @@ The main purpose of this repository is to build the docker image for any platfor
 ### Build docker image
 
 ```sh
-JEKYLL_VERSION=4.2.0
+JEKYLL_VERSION=4.2.2
 ./build.sh
 ```
 
 ### Launch docker container in the Jekyll project
 
 ```sh
-JEKYLL_VERSION=4.2.0
+JEKYLL_VERSION=4.2.2
 docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 tiryoh/jekyll:$JEKYLL_VERSION jekyll serve --config _config.yml
 ```
 
