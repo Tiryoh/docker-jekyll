@@ -3,27 +3,27 @@
 Dockerfile of [jekyll/jekyll](https://github.com/jekyll/jekyll)
 
 This repository is adapted from [envygeeks/jekyll-docker](https://github.com/envygeeks/jekyll-docker).  
-The main purpose of this repository is to build the docker image for any platforms.
+The main purpose of this repository is to build the docker image for amd64/arm64.
 
 ## Usage
 
 ### Build docker image
 
 ```sh
-JEKYLL_VERSION=4.2.0
+JEKYLL_VERSION=4.2.2
 ./build.sh
 ```
 
 ### Launch docker container in the Jekyll project
 
 ```sh
-JEKYLL_VERSION=4.2.0
+JEKYLL_VERSION=4.2.2
 docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 tiryoh/jekyll:$JEKYLL_VERSION jekyll serve --config _config.yml
 ```
 
 ## License
 
-(C) 2021 Daisuke Sato
+(C) 2021-2023 Daisuke Sato
 
 This repository is licensed under the MIT License, see [LICENSE](./LICENSE).
 Unless attributed otherwise, everything in this repository is licensed under the MIT license.
