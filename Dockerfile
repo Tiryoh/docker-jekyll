@@ -69,6 +69,7 @@ RUN apk --no-cache add \
   zlib-dev \
   vips-dev \
   sqlite-dev \
+  libc6-compat \
   cmake
 
 #
