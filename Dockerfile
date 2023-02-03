@@ -1,4 +1,4 @@
-FROM ruby:2.7.1-alpine3.11
+FROM ruby:2.7.7-alpine3.16
 LABEL maintainer="Tiryoh <tiryoh@gmail.com>"
 COPY rootfs /
 
@@ -91,7 +91,7 @@ RUN apk --no-cache add \
   shadow \
   bash \
   su-exec \
-  nodejs-npm \
+  npm \
   libressl \
   yarn
 
