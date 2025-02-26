@@ -10,20 +10,20 @@ The main purpose of this repository is to build the docker image for amd64/arm64
 ### Build docker image
 
 ```sh
-JEKYLL_VERSION=4.2.2
+JEKYLL_VERSION=4.4.1
 ./build.sh
 ```
 
 ### Launch docker container in the Jekyll project
 
 ```sh
-JEKYLL_VERSION=4.2.2
+JEKYLL_VERSION=4.4.1
 docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 tiryoh/jekyll:$JEKYLL_VERSION jekyll serve --config _config.yml
 ```
 
 ## License
 
-(C) 2021-2023 Daisuke Sato
+(C) 2021-2025 Daisuke Sato
 
 This repository is licensed under the MIT License, see [LICENSE](./LICENSE).
 Unless attributed otherwise, everything in this repository is licensed under the MIT license.

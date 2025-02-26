@@ -20,11 +20,13 @@ jobs:
       matrix:
         jekyll-version:
           - '3.8.7'
-          - '3.9.3'
+          - '3.9.5'
+          - '3.10.0'
           - '4.0.1'
           - '4.1.1'
           - '4.2.2'
-          - '4.3.2'
+          - '4.3.4'
+          - '4.4.1'
 
     steps:
       - name: Checkout
@@ -69,7 +71,7 @@ jobs:
             type=raw,value=${{ matrix.jekyll-version }}-{{date 'YYYYMMDDTHHmm'}}
             type=raw,value=${{ matrix.jekyll-version }}
           flavor: |
-            latest=${{ matrix.jekyll-version == '4.2.1' }}
+            latest=${{ matrix.jekyll-version == '4.4.1' }}
             prefix=
             suffix=
 
