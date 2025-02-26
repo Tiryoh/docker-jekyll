@@ -1,4 +1,4 @@
-FROM ruby:2.7.7-alpine3.16
+FROM ruby:3.4.2-alpine3.21
 LABEL maintainer="Tiryoh <tiryoh@gmail.com>"
 COPY rootfs /
 
@@ -114,9 +114,23 @@ RUN unset GEM_HOME && unset GEM_BIN && yes | gem install --force bundler
 RUN gem install jekyll -v$JEKYLL_VERSION -- \
     --use-system-libraries
 
-# Stops slow Nokogiri!
-RUN gem install html-proofer jekyll-reload jekyll-mentions jekyll-coffeescript jekyll-sass-converter jekyll-commonmark jekyll-paginate jekyll-compose jekyll-assets RedCloth kramdown jemoji -- \
-  --use-system-libraries
+# jekyll-sass-converter v2, v3 uses sass-embedded, which conflicts with sass (sass is deprecated)
+# Note that GitHub Pages still uses old v1 jekyll-sass-converter
+# https://github.com/jekyll/jekyll-sass-converter?tab=readme-ov-file#migrate-from-2x-to-3x
+# kramdown is not necessary for Jekyll 4
+RUN gem install \
+    sass-embedded \
+    jekyll-sass-converter \
+    html-proofer \
+    jekyll-mentions \
+    jekyll-coffeescript \
+    jekyll-commonmark \
+    jekyll-paginate-v2 \
+    jekyll-compose \
+    RedCloth \
+    kramdown \
+    jemoji -- \
+    --use-system-libraries
 
 
 RUN addgroup -Sg 1000 jekyll
