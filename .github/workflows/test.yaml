@@ -1,4 +1,4 @@
-name: Deploy
+name: Build Test
 on:
   pull_request:
 
@@ -7,7 +7,7 @@ env:
   DOCKER_IMAGENAME: jekyll
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
