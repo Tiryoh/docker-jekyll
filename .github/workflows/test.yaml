@@ -80,6 +80,7 @@ jobs:
         run: |
           docker buildx build  --no-cache --platform=linux/${{ matrix.arch }} \
           --progress=plain ${{ steps.docker-build-option.outputs.labels }} \
+          --build-arg BASE_IMAGE=${{ matrix.base-image }} \
           --build-arg JEKYLL_VERSION=${{ matrix.jekyll-version }} \
           --build-arg JEKYLL_DOCKER_TAG=${{ matrix.jekyll-version }} \
           --build-arg RUBYOPT='-W0' \
