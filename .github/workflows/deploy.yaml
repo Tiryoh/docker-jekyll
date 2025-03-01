@@ -69,7 +69,7 @@ jobs:
             type=raw,value=${{ matrix.jekyll-version }}-{{date 'YYYYMMDDTHHmm'}}
             type=raw,value=${{ matrix.jekyll-version }}
           flavor: |
-            latest=${{ matrix.jekyll-version == '4.2.2' }}
+            latest=${{ matrix.jekyll-version == '4.2.1' }}
             prefix=
             suffix=
 
