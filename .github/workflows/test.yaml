@@ -12,6 +12,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        base-image:
+          - 'ruby:3.4.2-alpine3.21'
+          - 'ruby:2.7.7-alpine3.16'
         jekyll-version:
           - '3.8.7'
           - '3.9.5'
@@ -25,6 +28,14 @@ jobs:
           - amd64
           - arm64
         include:
+          # build with Ruby 2.7 for Jekyll 3.x
+          - jekyll-version: '3.8.7'
+            base-image: 'ruby:2.7.7-alpine3.16'
+          - jekyll-version: '3.9.5'
+            base-image: 'ruby:2.7.7-alpine3.16'
+          - jekyll-version: '3.10.0'
+            base-image: 'ruby:2.7.7-alpine3.16'
+          # runner settings
           - arch: amd64
             runner: ubuntu-22.04
           - arch: arm64
