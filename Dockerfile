@@ -1,4 +1,5 @@
-FROM ruby:3.4.2-alpine3.21
+ARG BASE_IMAGE=ruby:3.4.2-alpine3.21
+FROM ${BASE_IMAGE}
 LABEL maintainer="Tiryoh <tiryoh@gmail.com>"
 COPY rootfs /
 
@@ -102,8 +103,8 @@ RUN apk --no-cache add \
 #
 
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-RUN unset GEM_HOME && unset GEM_BIN && \
-  yes | gem update --system
+# RUN unset GEM_HOME && unset GEM_BIN && \
+#   yes | gem update --system
 
 #
 # Gems

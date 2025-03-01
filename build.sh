@@ -13,7 +13,10 @@ else
     COMMIT_HASH="null"
 fi
 
-docker build -t $DOCKER_HUB_USER/$DOCKER_TAG \
+# docker buildx build \
+#  --platform linux/arm64 \
+docker build \
+ --build-arg BASE_IMAGE=ruby:3.4.2-alpine3.21 \
  --build-arg RUBYOPT=$RUBYOPT \
  --build-arg JEKYLL_DOCKER_TAG=$JEKYLL_VERSION \
  --build-arg JEKYLL_VERSION=$JEKYLL_VERSION \
