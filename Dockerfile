@@ -1,4 +1,5 @@
-FROM ruby:3.4.2-alpine3.21
+ARG BASE_IMAGE=ruby:3.4.2-alpine3.21
+FROM ${BASE_IMAGE}
 LABEL maintainer="Tiryoh <tiryoh@gmail.com>"
 COPY rootfs /
 
