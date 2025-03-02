@@ -6,7 +6,7 @@ DOCKER_HUB_USER="tiryoh"
 DOCKER_TAG_BASE="jekyll"
 DOCKER_TAG="${DOCKER_TAG_BASE}:${JEKYLL_VERSION}"
 RUBYOPT="-W0"
-BASE_IMAGE="ruby:3.4.2-alpine3.21"
+BASE_IMAGE=${BASE_IMAGE:-"ruby:3.4.2-alpine3.21"}
 
 if git rev-parse --verify HEAD > /dev/null 2>&1 ; then
     COMMIT_HASH="$(git rev-parse --verify HEAD)"
