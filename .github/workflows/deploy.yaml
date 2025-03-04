@@ -69,7 +69,7 @@ jobs:
             type=raw,value=${{ matrix.jekyll-version }}-{{date 'YYYYMMDDTHHmm'}}
             type=raw,value=${{ matrix.jekyll-version }}
           flavor: |
-            latest=${{ matrix.jekyll-version == '4.2.1' }}
+            latest=${{ matrix.jekyll-version == '4.2.2' }}
             prefix=
             suffix=
 
@@ -85,6 +85,7 @@ jobs:
           cache-from: type=local,src=${{ runner.temp }}/.buildx-cache
           cache-to: type=local,dest=${{ runner.temp }}/.buildx-cache-new,mode=max
           build-args: |
+            BASE_IMAGE='ruby:3.4.2-alpine3.21'
             JEKYLL_VERSION=${{ matrix.jekyll-version }}
             JEKYLL_DOCKER_TAG=${{ matrix.jekyll-version }}
             RUBYOPT='-W0'
