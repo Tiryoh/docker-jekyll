@@ -14,11 +14,14 @@ else
     COMMIT_HASH="null"
 fi
 
-docker build -t "${DOCKER_HUB_USER}/${DOCKER_TAG}" \
+# docker buildx build \
+#  --platform linux/arm64 \
+docker build \
  --build-arg BASE_IMAGE="${BASE_IMAGE}" \
  --build-arg RUBYOPT="${RUBYOPT}" \
  --build-arg JEKYLL_DOCKER_TAG="${JEKYLL_VERSION}" \
  --build-arg JEKYLL_VERSION="${JEKYLL_VERSION}" \
  --build-arg JEKYLL_DOCKER_COMMIT="${COMMIT_HASH}" \
  --build-arg JEKYLL_DOCKER_NAME="${DOCKER_TAG_BASE}" \
+ -t "${DOCKER_HUB_USER}/${DOCKER_TAG}" \
  -f Dockerfile .
